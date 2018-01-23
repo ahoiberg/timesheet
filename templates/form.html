@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<head>
+    <title>timesheet</title>
+
+</head>
+
+<body>
+<h3>Current Total: {{total}}</h3>
+<br>
+<H4>Submit more hours: </H4> 
+<form action="" method="post">
+  <input id="POST-name" type="text" name="hours">
+  <input id="POST-name" type="hidden" name="total" value = {{total}}>
+  <input type="submit" value="submit">
+</form>
+</body>
