@@ -6,15 +6,15 @@ Currently using an SQLite DB, will probably migrate that if/when this gets deplo
 
 To initialize database, run:
 
-'''
+```
 flask initdb
-'''
+```
 
 To run the applicaiton locally:
 
-'''
+```
 flask run
-'''
+```
 
 
 
