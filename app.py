@@ -43,21 +43,19 @@ def close_db(error):
         g.sqlite_db.close()
 
 @app.route('/')
-def home(total=0):
-    return render_template("form.html", total=total)
-
-@app.route('/', methods=['POST'])
-def my_form_post():
-    hours = request.form['hours']
-    total = request.form['total']
-    return home(float(hours) + float(total))
-
-@app.route('/history')
 def history():
     db = get_db()
     cur = db.execute('select day, hours, comment from entries order by id desc')
-    entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
+    items = cur.fetchall()
+    total = db.execute('select sum(hours) from entries')
+    total = total.fetchall()
+    total = 0
+    for item in items:
+        print(item["hours"])
+        print(item["day"])
+        print(item["comment"])
+        total += float(item["day"])
+    return render_template('show_entries.html', total=total, entries=items)
 
 @app.route('/add', methods=['POST'])
 def add_entry():
