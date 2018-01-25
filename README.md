@@ -4,24 +4,36 @@ Created to track how long I work on side projects
 
 Currently using an SQLite DB, will probably migrate that if/when this gets deployed
 
+This is best run with virtualenv, install ```sudo pip install virtualenv```
+
+To set up your virtual environment, run:
+
+```
+virtualenv -p python3 env
+```
+
+To activate, run:
+
+```
+source env/bin/activate
+```
+
+Install your python dependencies
+```
+pip install -r requirements.txt
+```
+
 To initialize database, run:
 
 ```
 flask initdb
 ```
 
-To run the applicaiton locally:
+Note that this will destory any existing information, so be careful
+
+To run the application locally:
 
 ```
 flask run
 ```
 
-
-
-Plan for MVP:
-
-1/23: create database, be able to create entry for each instance of hours logged (also confirm this approach is correct)
-
-1/24: be able to collate weekly totals
-
-1/26: add some styling 
