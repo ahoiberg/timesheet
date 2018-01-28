@@ -1,5 +1,9 @@
 import sqlite3, os
 from flask import Flask, request, render_template, g, redirect, url_for
+from sqlalchemy import func, create_engine, MetaData, Table
+from sqlalchemy.sql import select
+from sqlalchemy.orm import mapper, sessionmaker
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -47,21 +51,16 @@ def history():
     db = get_db()
     cur = db.execute('select day, hours, comment from entries order by id desc')
     items = cur.fetchall()
-    total = db.execute('select sum(hours) from entries')
-    total = total.fetchall()
     total = 0
     for item in items:
-        print(item["hours"])
-        print(item["day"])
-        print(item["comment"])
-        total += float(item["day"])
+        total += float(item["hours"])
     return render_template('show_entries.html', total=total, entries=items)
 
 @app.route('/add', methods=['POST'])
 def add_entry():
     db = get_db()
     db.execute('insert into entries (hours, day, comment) values (?, ?, ?)',
-                 [request.form['day'], request.form['hours'], request.form['comment']])
+                 [request.form['hours'], request.form['day'], request.form['comment']])
     db.commit()
     return history()
 
