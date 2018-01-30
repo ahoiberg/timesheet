@@ -23,6 +23,10 @@ Install your python dependencies
 pip install -r requirements.txt
 ```
 
+Set your environment variables ```export FLASK_APP=app.py```
+for debug mode: ```export FLASK_DEBUG=true```
+
+
 To initialize database, run:
 
 ```
