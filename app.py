@@ -2,6 +2,7 @@ import sqlite3, os
 from datetime import datetime
 from flask import Flask, request, render_template, g, redirect, url_for
 import sqlalchemy
+from flask_bootstrap import Bootstrap #todo actually implement bootstrap, or look into flex
 from sqlalchemy import func, create_engine, Table, Column, Integer, Date, String, MetaData, ForeignKey
 from sqlalchemy.sql import select
 from sqlalchemy.orm import mapper, sessionmaker
@@ -11,12 +12,11 @@ from sqlalchemy_utils import database_exists, create_database
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+Bootstrap(app)
 
 engine = create_engine('sqlite:///timesheet.db', echo=True)
 if not database_exists(engine.url):
     create_database(engine.url)
-
-print(database_exists(engine.url))
 
 metadata = MetaData()
 
@@ -33,12 +33,8 @@ metadata.create_all(engine)
 @app.route('/')
 def history():
     db = engine.connect()
-    print("connected")
     cur = entries.select()
-    print("selected entries")
     items = db.execute(cur)
-    print("executed")
-    print(items)
     total = 0
     e = []
     for item in items:
@@ -50,7 +46,6 @@ def history():
 def add_entry():
     db = engine.connect()
     d = list(map(int, request.form['day'].split('-')))
-    print(d[0])
     d = datetime(d[0], d[1], d[2])
     cur = entries.insert().values(hours=request.form['hours'], day=d, comment=request.form['comment'])
     db.execute(cur)
