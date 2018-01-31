@@ -12,7 +12,7 @@ from sqlalchemy_utils import database_exists, create_database
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-engine = create_engine('sqlite:////Users/andrewhoiberg/personal_projects/timesheet/timesheet.db', echo=True)
+engine = create_engine('sqlite:///timesheet.db', echo=True)
 if not database_exists(engine.url):
     create_database(engine.url)
 
@@ -53,8 +53,6 @@ def add_entry():
     print(d[0])
     d = datetime(d[0], d[1], d[2])
     cur = entries.insert().values(hours=request.form['hours'], day=d, comment=request.form['comment'])
-    # db.execute('insert into entries (hours, day, comment) values (?, ?, ?)',
-    #              [request.form['hours'], request.form['day'], request.form['comment']])
     db.execute(cur)
     return history()
 

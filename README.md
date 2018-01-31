@@ -24,6 +24,7 @@ pip install -r requirements.txt
 ```
 
 Set your environment variables ```export FLASK_APP=app.py```
+
 for debug mode: ```export FLASK_DEBUG=true```
 
 
@@ -33,9 +34,7 @@ To initialize database, run:
 touch timesheet.db
 ```
 
-note that this is a hack-a better solution must exist
-
-Note that this will destory any existing information, so be careful
+note that this is a hack-a better solution must exist.
 
 To run the application locally:
 
