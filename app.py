@@ -2,7 +2,7 @@ import sqlite3, os
 from datetime import datetime
 from flask import Flask, request, render_template, g, redirect, url_for
 import sqlalchemy
-from flask_bootstrap import Bootstrap #todo actually implement bootstrap, or look into flex
+from flask_bootstrap import Bootstrap 
 from sqlalchemy import func, create_engine, Table, Column, Integer, Date, String, MetaData, ForeignKey
 from sqlalchemy.sql import select
 from sqlalchemy.orm import mapper, sessionmaker
