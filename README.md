@@ -30,8 +30,10 @@ for debug mode: ```export FLASK_DEBUG=true```
 To initialize database, run:
 
 ```
-flask initdb
+touch timesheet.db
 ```
+
+note that this is a hack-a better solution must exist
 
 Note that this will destory any existing information, so be careful
 
