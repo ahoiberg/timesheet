@@ -5,3 +5,4 @@ sqlalchemy_utils
 flask_bootstrap
 Flask-WTF
 flask-login
+psycopg2
