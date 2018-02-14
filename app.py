@@ -1,5 +1,5 @@
 import sqlite3, os
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, request, render_template, g, redirect, url_for
 import sqlalchemy
 from flask_bootstrap import Bootstrap 
@@ -36,11 +36,15 @@ def history():
     cur = entries.select()
     items = db.execute(cur)
     total = 0
+    week = 0
     e = []
+    now = datetime.today().date()
     for item in items:
         total += float(item["hours"])
+        if item["day"] > (now - timedelta(days=7)):
+            week += float(item["hours"]) 
         e.append(item)
-    return render_template('show_entries.html', total=total, entries=e)
+    return render_template('show_entries.html', total=total, week=week,  entries=e)
 
 @app.route('/add', methods=['POST'])
 def add_entry():
@@ -49,5 +53,12 @@ def add_entry():
     d = datetime(d[0], d[1], d[2])
     cur = entries.insert().values(hours=request.form['hours'], day=d, comment=request.form['comment'])
     db.execute(cur)
+    return history()
+
+@app.route('/delete', methods=['POST'])
+def delete_entry():
+    db = engine.connect()
+    entry = entries.delete().values(id=request.form['id'])
+    db.execute(entry)
     return history()
 
