@@ -34,8 +34,6 @@ To initialize database, run:
 touch timesheet.db
 ```
 
-note that this is a hack-a better solution must exist.
-
 To run the application locally:
 
 ```
